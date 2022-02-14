@@ -1,0 +1,29 @@
+Test cases:
+
+Same Month
+m1   d1   m2   d2   year    expected value
+4     5    4    6   2021          1
+
+Different Month
+m1   d1   m2   d2   year    expected value
+7     5    8    5   2021       30
+
+Different Month
+m1   d1   m2   d2   year    expected value
+8     2    9    2   2021         30
+
+Leap Year (Same Month)
+m1   d1   m2   d2   year    expected value
+4     5    4    6   2020           1
+
+Leap Year (Different Month)
+m1   d1   m2   d2   year    expected value
+2     5   3     6   2020           30
+
+Not Leap Year (Same Month)
+m1   d1   m2   d2   year    expected value
+4     7   4     7   2020          0
+
+Not Leap Year ( Different Month)
+m1   d1   m2   d2   year    expected value
+7    11   8    11   2021           29
