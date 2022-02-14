@@ -6,6 +6,7 @@ package edu.gmu.swe642.assignment1;
  */
 public class App {
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
+		int numday = Cal.cal(8, 28, 10, 2, 2021);
+		System.out.println(numday);
 	}
 }
