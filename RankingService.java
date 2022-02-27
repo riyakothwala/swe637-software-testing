@@ -2,7 +2,7 @@ package edu.gmu.swe645.assignment2;
 import java.util.HashMap;
 
 public class RankingService{
-    public Rank getRank(Customer customer){
+    public HashMap<String, Integer> getRank(Customer customer){
 
 
         HashMap<String, Integer> rank = new HashMap<>();
@@ -12,10 +12,6 @@ public class RankingService{
         rank.put("Barid", 3);
         rank.put("Xavier", 4);
 
-
-        Rank rankobj = new Rank(rank);
-
-        return rankobj;
-
+        return rank;
     }
 }
