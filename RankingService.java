@@ -11,7 +11,6 @@ public class RankingService{
         rank.put("Daksha", 2);
         rank.put("Barid", 3);
         rank.put("Xavier", 4);
-
         return rank;
     }
 }
