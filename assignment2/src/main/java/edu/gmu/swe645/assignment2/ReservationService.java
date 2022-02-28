@@ -1,21 +1,29 @@
 package edu.gmu.swe645.assignment2;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class ReservationService {
 	
-	private ArrayList<Customer> ReservationList;
+	RankingService rankingService;
+	ArrayList<Customer> reservationList;
 	
 	ReservationService(){
-		this.ReservationList = new ArrayList<Customer>();
+		this.reservationList = new ArrayList<Customer>();
 	}
 	
-	public void reserve(String name) {
-		Customer newCustomer = new Customer(name);
-		this.ReservationList.add(newCustomer);
+	public void reserve(String name, int rank) {
+		Customer newCust = new Customer(name, rank);
+		this.reservationList.add(newCust);
 	}
 	
 	public Customer getCustomer(int index) {
-		return this.ReservationList.get(index);
+		return this.reservationList.get(index);
+	}
+	
+	public void sortAssendingRank() {
+		Collections.sort(this.reservationList);
 	}
 }

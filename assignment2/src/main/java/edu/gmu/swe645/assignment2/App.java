@@ -12,12 +12,20 @@ public class App
         
         ReservationService RS = new ReservationService();
 		
-		RS.reserve("Person1");
-		RS.reserve("Person2");
-		RS.reserve("Person3");
+		RS.reserve("Person1", 3);
+		RS.reserve("Person2", 2);
+		RS.reserve("Person3", 1);
 		
-		System.out.println("1 - " + RS.getCustomer(0).getName());
-		System.out.println("2 - " + RS.getCustomer(1).getName());
-		System.out.println("3 - " + RS.getCustomer(2).getName());
+		System.out.println(RS.getCustomer(0).getName()+ " Rank - " + RS.getCustomer(0).getRank());
+		System.out.println(RS.getCustomer(1).getName()+ " Rank - " + RS.getCustomer(1).getRank());
+		System.out.println(RS.getCustomer(2).getName()+ " Rank - " + RS.getCustomer(2).getRank());
+		
+		RS.sortAssendingRank();
+		
+		System.out.println();
+		
+		System.out.println(RS.getCustomer(0).getName()+ " Rank - " + RS.getCustomer(0).getRank());
+		System.out.println(RS.getCustomer(1).getName()+ " Rank - " + RS.getCustomer(1).getRank());
+		System.out.println(RS.getCustomer(2).getName()+ " Rank - " + RS.getCustomer(2).getRank());
     }
 }

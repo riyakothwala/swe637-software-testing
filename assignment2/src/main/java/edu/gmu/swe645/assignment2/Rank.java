@@ -2,7 +2,7 @@ package edu.gmu.swe645.assignment2;
 
 public class Rank {
 
-	int rank;
+	Integer rank;
 
 	public Rank(int rank) {
 		super();
