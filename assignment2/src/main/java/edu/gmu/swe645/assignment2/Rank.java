@@ -1,8 +1,10 @@
 package edu.gmu.swe645.assignment2;
 
-public class Rank {
+import java.util.Objects;
 
-	Integer rank;
+public class Rank implements Comparable<Rank> {
+
+	int rank;
 
 	public Rank(int rank) {
 		super();
@@ -12,4 +14,12 @@ public class Rank {
 	public int getRank() {
 		return rank;
 	}
+
+
+	@Override
+	public int compareTo(Rank o) {
+		return this.rank - o.rank;
+	}
+
 }
+// Integer.valueOf(this.getRank()).compareTo(Integer.valueOf(o.getRank()))
