@@ -3,27 +3,21 @@ package edu.gmu.swe645.assignment2;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.TreeMap;
 
 
 public class ReservationService {
 	
 	RankingService rankingService;
-	ArrayList<Customer> reservationList;
+	TreeMap<Rank, Customer> reservationList;
 	
 	ReservationService(){
-		this.reservationList = new ArrayList<Customer>();
+		this.reservationList = new TreeMap<Rank, Customer>();
+		this.rankingService = new RankingService();
 	}
 	
-	public void reserve(String name, int rank) {
-		Customer newCust = new Customer(name, rank);
-		this.reservationList.add(newCust);
-	}
-	
-	public Customer getCustomer(int index) {
-		return this.reservationList.get(index);
-	}
-	
-	public void sortAssendingRank() {
-		Collections.sort(this.reservationList);
+	public void reserve(Customer c) {
+		Rank r = rankingService.getRank(c);
+		this.reservationList.put(r, c);
 	}
 }
