@@ -2,8 +2,8 @@ package edu.gmu.swe645.assignment2;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.junit.Test;
 
@@ -24,11 +24,11 @@ public class ReservationServiceTest {
 		final Customer daksha = new Customer("Daksha");
 		Rank dakshRank = new Rank(2);
 		
-		final Customer barid = new Customer("Riya");
-		final Rank baridRank = new Rank(1);
+		final Customer barid = new Customer("Barid");
+		final Rank baridRank = new Rank(3);
 
-		final Customer xavier = new Customer("Daksha");
-		final Rank xavierRank = new Rank(2);
+		final Customer xavier = new Customer("Xavier");
+		final Rank xavierRank = new Rank(4);
 		
 		new Expectations() {
 			{
@@ -49,13 +49,14 @@ public class ReservationServiceTest {
 			}
 		};
 
-		Map<Rank, Customer> reservationListExpected = new TreeMap<Rank, Customer>();
+		Map<Rank, Customer> reservationListExpected = new HashMap<Rank, Customer>();
 		reservationListExpected.put(riyaRank, riya);
 		reservationListExpected.put(dakshRank, daksha);
 		reservationListExpected.put(baridRank, barid);
 		reservationListExpected.put(xavierRank, xavier);
 		
 		ReservationService reservationService = new ReservationService();
+		// order should not matter.
 		reservationService.reserve(riya);
 		reservationService.reserve(daksha);
 		reservationService.reserve(barid);
