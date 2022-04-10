@@ -8,21 +8,32 @@ import org.junit.jupiter.api.Test;
 
 class LinkedListTest {
 	
+	LinkedList<Integer> lLI;
+	LinkedList<String> lLS;
+	
 	@BeforeEach
 	void setup() {
 		System.out.println("Setting up test...");
+		
+		lLI = new LinkedList<Integer>();
+		lLS = new LinkedList<String>();
 	}
 	
 	@AfterEach
 	void tearDown() {
 		System.out.println("Tearing down test...");
+	
+		lLI = null;
+		lLS = null;
 	}
 	
 	
 	////Start of Barid's tests
 	@Test
-	void test() {
+	void test1() {
 		System.out.println("Starting Test 1");
+		
+		
 	}
 	////End of Barid's tests
 	
