@@ -15,8 +15,6 @@ class LinkedListTest {
 	void setup() {
 		System.out.println("Setting up test...");
 		
-		lLI = new LinkedList<Integer>();
-		lLS = new LinkedList<String>();
 	}
 	
 	@AfterEach
@@ -30,8 +28,27 @@ class LinkedListTest {
 	
 	////Start of Barid's tests
 	@Test
+	
+	//This test focuses on the following methods from LinkedList:
+	//
 	void test1() {
 		System.out.println("Starting Test 1");
+		
+		//create new LinkedList object to test method LinkedList()
+		lLI = new LinkedList<Integer> ();
+		
+		//verify lLI no longer == null
+		assertNotEquals(null,lLI);
+		
+		lLI.add(1);
+		lLI.add(2);
+		lLI.add(3);
+		
+		//verify removeFirst() method returns what is expected
+		assertEquals("1",lLI.removeFirst().toString());
+		
+		//verify contains() method works as expected
+		assertEquals(true,lLI.contains(2));
 		
 		
 	}
