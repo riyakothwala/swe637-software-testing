@@ -30,7 +30,8 @@ class LinkedListTest {
 	@Test
 	
 	//This test focuses on the following methods from LinkedList:
-	//
+	//LinkedList(), removeFirst(), contains(Object o), addAll(LinkedList<E> c)
+	//set(int index, E element), indexOf(), poll()
 	void test1() {
 		System.out.println("Starting Test 1");
 		
@@ -43,6 +44,8 @@ class LinkedListTest {
 		lLI.add(1);
 		lLI.add(2);
 		lLI.add(3);
+		lLI.add(4);
+		lLI.add(5);
 		
 		//verify removeFirst() method returns what is expected
 		assertEquals("1",lLI.removeFirst().toString());
@@ -50,6 +53,28 @@ class LinkedListTest {
 		//verify contains() method works as expected
 		assertEquals(true,lLI.contains(2));
 		
+		LinkedList<Integer> lLI2 = new LinkedList<Integer>();
+		
+		//test addAll() method
+		lLI2.addAll(lLI);
+		
+		//verify lLI2 contains what is expected
+		assertEquals("2",lLI2.get(0).toString());
+		assertEquals("3",lLI2.get(1).toString());
+		assertEquals("4",lLI2.get(2).toString());
+		assertEquals("5",lLI2.get(3).toString());
+		
+		//test set(int index, E element) method
+		lLI.set(0, 5);
+		
+		//verify that set() method worked as expected
+		assertEquals("5",lLI.get(0).toString());
+		
+		//verify/test of indexOf() method
+		assertEquals(0, lLI.indexOf(5));
+		
+		//verify/test of poll() method
+		assertEquals("5", lLI.poll().toString());
 		
 	}
 	////End of Barid's tests
