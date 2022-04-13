@@ -204,7 +204,7 @@ class LinkedListTest {
 		assertEquals("5", lLI.get(3).toString());
 
 		// test the entry(int index) method
-			/* remaining */
+			/* it's a private method so no need to test*/
 		
 		// test the E element method
 		assertEquals(1, lLI.element());
@@ -226,7 +226,7 @@ class LinkedListTest {
 		assertEquals(s3-1,lLI.size());
 		
 		// test for addBefore(E e, Entry<E> entry) method
-			/* remaining */
+			/* it's a private method so no need to test*/
 	}
 	/*------------------------End of Riya's tests-----------------------------------*/
 
