@@ -1,235 +1,351 @@
 package assignment5;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.NoSuchElementException;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.NoSuchElementException;
+
 
 class LinkedListTest {
 
-	LinkedList<Integer> lLI;
-	LinkedList<String> lLS;
+    LinkedList<Integer> lLI;
+    LinkedList<String> lLS;
 
-	@BeforeEach
-	void setup() {
-		System.out.println("Setting up test...");
-	}
+    @BeforeEach
+    void setup() {
+        System.out.println("Setting up test...");
+    }
 
-	@AfterEach
-	void tearDown() {
-		System.out.println("Tearing down test...");
+    @AfterEach
+    void tearDown() {
+        System.out.println("Tearing down test...");
 
-		lLI = null;
-		lLS = null;
-	}
+        lLI = null;
+        lLS = null;
+    }
 
-//==============================================================================================================================	
+    //==============================================================================================================================
 
-	/*------------------------Start of Barid's tests-----------------------------------*/
 
-	/*
-	 * This test focuses on the following methods from LinkedList: LinkedList(),
-	 * removeFirst(), contains(Object o), addAll(LinkedList<E> c) set(int index, E
-	 * element), indexOf(), poll(), offerLast(), pollLast(), removeLastOccurrence()
-	 */
-	@Test
+    /*
+     * This test focuses on the following methods from LinkedList: LinkedList(),
+     * removeFirst(), contains(Object o), addAll(LinkedList<E> c) set(int index, E
+     * element), indexOf(), poll(), offerLast(), pollLast(), removeLastOccurrence()
+     */
+    @Test
+    void test1() {
+        System.out.println("Starting Test 1");
 
-	void test1() {
-		System.out.println("Starting Test 1");
+        // create new LinkedList object to test method LinkedList()
+        lLI = new LinkedList<Integer>();
 
-		// create new LinkedList object to test method LinkedList()
-		lLI = new LinkedList<Integer>();
+        // verify lLI no longer == null
+        assertNotEquals(null, lLI);
 
-		// verify lLI no longer == null
-		assertNotEquals(null, lLI);
+        lLI.add(1);
+        lLI.add(2);
+        lLI.add(3);
+        lLI.add(4);
+        lLI.add(5);
 
-		lLI.add(1);
-		lLI.add(2);
-		lLI.add(3);
-		lLI.add(4);
-		lLI.add(5);
+        // verify removeFirst() method returns what is expected
+        assertEquals("1", lLI.removeFirst().toString());
 
-		// verify removeFirst() method returns what is expected
-		assertEquals("1", lLI.removeFirst().toString());
+        // verify contains() method works as expected
+        assertEquals(true, lLI.contains(2));
 
-		// verify contains() method works as expected
-		assertEquals(true, lLI.contains(2));
+        LinkedList<Integer> lLI2 = new LinkedList<Integer>();
 
-		LinkedList<Integer> lLI2 = new LinkedList<Integer>();
+        // test addAll() method
+        lLI2.addAll(lLI);
 
-		// test addAll() method
-		lLI2.addAll(lLI);
+        // verify lLI2 contains what is expected
+        assertEquals("2", lLI2.get(0).toString());
+        assertEquals("3", lLI2.get(1).toString());
+        assertEquals("4", lLI2.get(2).toString());
+        assertEquals("5", lLI2.get(3).toString());
 
-		// verify lLI2 contains what is expected
-		assertEquals("2", lLI2.get(0).toString());
-		assertEquals("3", lLI2.get(1).toString());
-		assertEquals("4", lLI2.get(2).toString());
-		assertEquals("5", lLI2.get(3).toString());
+        // test set(int index, E element) method
+        lLI.set(0, 5);
 
-		// test set(int index, E element) method
-		lLI.set(0, 5);
+        // verify that set() method worked as expected
+        assertEquals("5", lLI.get(0).toString());
 
-		// verify that set() method worked as expected
-		assertEquals("5", lLI.get(0).toString());
+        // verify/test of indexOf() method
+        assertEquals(0, lLI.indexOf(5));
 
-		// verify/test of indexOf() method
-		assertEquals(0, lLI.indexOf(5));
+        // verify/test of poll() method
+        assertEquals("5", lLI.poll().toString());
 
-		// verify/test of poll() method
-		assertEquals("5", lLI.poll().toString());
+        // call offerLast() method to add 6 to the end of Linked List
+        lLI.offerLast(6);
 
-		// call offerLast() method to add 6 to the end of Linked List
-		lLI.offerLast(6);
+        // verify value at expected position
+        assertEquals(6, lLI.get(3));
 
-		// verify value at expected position
-		assertEquals(6, lLI.get(3));
+        // call and verify pollLast() method
+        assertEquals(6, lLI.pollLast());
 
-		// call and verify pollLast() method
-		assertEquals(6, lLI.pollLast());
+        // call and verify outcome of removeLastOccurrence() method
+        assertEquals(true, lLI.removeLastOccurrence(5));
+    }
 
-		// call and verify outcome of removeLastOccurrence() method
-		assertEquals(true, lLI.removeLastOccurrence(5));
-	}
+    /*
+     * This test focuses on alternative branches for the following methods from
+     * LinkedList: remove(), contains(), indexof(), poll(), pollLast(),
+     * removeLastOccurrence()
+     */
+    @Test
+    void test2() {
+        System.out.println("Starting Test 2");
 
-	/*
-	 * This test focuses on alternative branches for the following methods from
-	 * LinkedList: remove(), contains(), indexof(), poll(), pollLast(),
-	 * removeLastOccurrence()
-	 */
-	@Test
-	void test2() {
-		System.out.println("Starting Test 2");
+        // create new LinkedList object to test method LinkedList()
+        lLI = new LinkedList<Integer>();
 
-		// create new LinkedList object to test method LinkedList()
-		lLI = new LinkedList<Integer>();
+        // test and verify alternative branch of remove() method
+        Exception exception = assertThrows(NoSuchElementException.class, () -> {
+            lLI.remove();
+        });
 
-		// test and verify alternative branch of remove() method
-		Exception exception = assertThrows(NoSuchElementException.class, () -> {
-			lLI.remove();
-		});
+        lLI.add(1);
 
-		lLI.add(1);
+        // test and verify alternative branch of contains() method
+        assertEquals(false, lLI.contains(2));
 
-		// test and verify alternative branch of contains() method
-		assertEquals(false, lLI.contains(2));
+        // test and verify alternative branch of indexOf() method
+        assertEquals(-1, lLI.indexOf(null));
 
-		// test and verify alternative branch of indexOf() method
-		assertEquals(-1, lLI.indexOf(null));
+        // add null to linked list
+        lLI.add(null);
 
-		// add null to linked list
-		lLI.add(null);
+        // for full coverage call indexOf() method with null already in list
+        assertEquals(1, lLI.indexOf(null));
 
-		// for full coverage call indexOf() method with null already in list
-		assertEquals(1, lLI.indexOf(null));
+        // reset list to an empty list
+        lLI = new LinkedList<Integer>();
 
-		// reset list to an empty list
-		lLI = new LinkedList<Integer>();
+        // test and verify alternative branch of poll() method
+        assertEquals(null, lLI.poll());
 
-		// test and verify alternative branch of poll() method
-		assertEquals(null, lLI.poll());
+        // test and verify alternative branch of pollLast() method
+        assertEquals(null, lLI.pollLast());
 
-		// test and verify alternative branch of pollLast() method
-		assertEquals(null, lLI.pollLast());
+        lLI.add(1);
 
-		lLI.add(1);
+        // test and verify alternative branch of removeLastOccurrence() method
+        assertEquals(false, lLI.removeLastOccurrence(null));
 
-		// test and verify alternative branch of removeLastOccurrence() method
-		assertEquals(false, lLI.removeLastOccurrence(null));
+        lLI.add(null);
 
-		lLI.add(null);
+        // test and verify alternative branch of removeLastOccurrence() method
+        assertEquals(true, lLI.removeLastOccurrence(null));
 
-		// test and verify alternative branch of removeLastOccurrence() method
-		assertEquals(true, lLI.removeLastOccurrence(null));
+        // lastly, for full coverage of removeLastOccurrence() method test method where
+        // we look
+        // for element in list with elements where the element we are looking for
+        // dosen't
+        // exsist in list
+        assertEquals(false, lLI.removeLastOccurrence(2));
 
-		// lastly, for full coverage of removeLastOccurrence() method test method where
-		// we look
-		// for element in list with elements where the element we are looking for
-		// dosen't
-		// exsist in list
-		assertEquals(false, lLI.removeLastOccurrence(2));
+    }
 
-	}
 
-	/*------------------------End of Barid's tests-----------------------------------*/
+    @Test
+    void test3() {
+        lLI = new LinkedList<Integer>();
+        LinkedList<Integer> emptyList = new LinkedList<Integer>();
 
-//==============================================================================================================================	
+        lLI.add(1);
+        lLI.add(2);
+        lLI.add(3);
+        lLI.add(4);
+        lLI.add(5);
 
-	/*------------------------Start of Daksha's tests-----------------------------------*/
+        // test the E getLast() method
+        assertEquals(5, lLI.getLast());
+        assertThrows(NoSuchElementException.class, () -> {
+            emptyList.getLast();
+        });
 
-	/*------------------------End of Daksha's tests-----------------------------------*/
+        // test the addLast(E e) method
+        Integer s1 = lLI.size();
+        lLI.addLast(8);
 
-//==============================================================================================================================	
+        assertEquals(s1 + 1, lLI.size());
 
-	/*------------------------Start of Xavier's tests-----------------------------------*/
+        // test the remove(Object o) method
+        assertFalse(lLI.remove(null)); // as we don't have any null element in the linked list
+        assertEquals(true, lLI.remove(Integer.valueOf(4))); // remove non null object
+        lLI.add(null);
+        assertEquals(true, lLI.remove(null));
 
-	/*------------------------End of Xavier's tests-----------------------------------*/
+        // test the get(int index)
+        assertEquals("5", lLI.get(3).toString());
 
-//==============================================================================================================================	
-	/*------------------------Start of Riya's tests-----------------------------------*/
+        // test the entry(int index) method
+        /* remaining */
 
-	@Test
-	void test3() {
-		lLI = new LinkedList<Integer>();
-		LinkedList<Integer> emptyList= new LinkedList<Integer>();
+        // test the E element method
+        assertEquals(1, lLI.element());
 
-		lLI.add(1);
-		lLI.add(2);
-		lLI.add(3);
-		lLI.add(4);
-		lLI.add(5);
+        // test the offerFirst(E e) method
+        lLI.offerFirst(10);
+        assertEquals(10, lLI.getFirst());
 
-		// test the E getLast() method
-		assertEquals(5, lLI.getLast());
-		assertThrows(NoSuchElementException.class, () -> {
-			emptyList.getLast();
-		});
+        // test for pollFirst() method
+        int s2 = lLI.size();
+        assertEquals(10, lLI.pollFirst());
+        assertEquals(s2 - 1, lLI.size());
 
-		// test the addLast(E e) method
-		Integer s1 = lLI.size();
-		lLI.addLast(8);
+        assertEquals(null, emptyList.pollFirst());
 
-		assertEquals(s1 + 1, lLI.size());
+        //test for removeFirstOccurrence(Object o) method
+        int s3 = lLI.size();
+        assertEquals(true, lLI.removeFirstOccurrence(Integer.valueOf(3)));
+        assertEquals(s3 - 1, lLI.size());
 
-		// test the remove(Object o) method
-		assertFalse(lLI.remove(null)); // as we don't have any null element in the linked list
-		assertEquals(true, lLI.remove(Integer.valueOf(4))); // remove non null object
-		lLI.add(null);
-		assertEquals(true,lLI.remove(null));
+        // test for addBefore(E e, Entry<E> entry) method
+        /* remaining */
+    }
 
-		// test the get(int index)
-		assertEquals("5", lLI.get(3).toString());
+    @Test
+    void test4() {
+        System.out.println("Starting Test 4");
 
-		// test the entry(int index) method
-			/* it's a private method so no need to test*/
-		
-		// test the E element method
-		assertEquals(1, lLI.element());
+        lLI = new LinkedList<Integer>();
+        //LinkedList<Integer> emptyList= new LinkedList<Integer>();
 
-		// test the offerFirst(E e) method
-		lLI.offerFirst(10);
-		assertEquals(10, lLI.getFirst());
+        lLI.add(1);
+        lLI.add(2);
+        lLI.add(3);
+        lLI.add(4);
+        lLI.add(5);
 
-		// test for pollFirst() method
-		int s2 = lLI.size();
-		assertEquals(10, lLI.pollFirst());
-		assertEquals(s2-1,lLI.size());
-		
-		assertEquals(null,emptyList.pollFirst());
-		
-		//test for removeFirstOccurrence(Object o) method
-		int s3 = lLI.size();
-		assertEquals(true, lLI.removeFirstOccurrence(Integer.valueOf(3)));
-		assertEquals(s3-1,lLI.size());
-		
-		// test for addBefore(E e, Entry<E> entry) method
-			/* it's a private method so no need to test*/
-	}
-	/*------------------------End of Riya's tests-----------------------------------*/
+        int xyz = lLI.remove(0);
+        assertEquals(-1, lLI.indexOf(xyz));
 
-//==============================================================================================================================	
+        lLI.indexOf(null);
+        assertEquals(-1, lLI.lastIndexOf(1));
 
+
+        //test the getFirst method
+        assertEquals(2, lLI.getFirst()); //test the getFirst method
+
+        assertEquals("5", lLI.removeLast().toString()); //test the removeLast method
+
+        assertEquals(3, lLI.size()); //test the size method
+
+        assertEquals(true, lLI.add(8)); //test add element method
+
+
+        lLI.addFirst(10);
+        assertEquals(10, lLI.getFirst()); //test the addFirst method
+
+
+        lLI.clear();
+        assertEquals(0, lLI.size()); //test the clear method using the size method which has been tested above
+
+        lLI.add(5);
+        lLI.add(1, 7);
+        assertEquals(7, lLI.get(1)); //test the get method by adding the elements to the list
+
+
+        //
+        lLI.add(8);
+        lLI.add(9);
+
+        //test the peek() method by checking the size and the first element twice because of 3 scenarios
+        //first: if a person removes the first element and then returns the element
+        //second: if a person after getting the first element changes the first value of the linked list
+        //third:checking the size of the list because to check whether the peek method has removed  the first element or other elements in the list
+        assertEquals(4, lLI.size());
+        assertEquals(5, lLI.peek());
+        assertEquals(4, lLI.size());
+        assertEquals(5, lLI.peek());
+
+
+        //test the peekFirst() method
+        assertEquals(4, lLI.size());
+        assertEquals(5, lLI.peekFirst());
+        assertEquals(4, lLI.size());
+        assertEquals(5, lLI.peekFirst());
+
+
+        // test the peekLast() method
+        assertEquals(4, lLI.size());
+        assertEquals(9, lLI.peekLast());
+        assertEquals(4, lLI.size());
+        assertEquals(9, lLI.peekLast());
+
+        //test the push() method
+        lLI.push(3);
+        assertEquals(3, lLI.peekFirst());
+        assertEquals(5, lLI.size());
+
+        lLI.pop();
+        assertEquals(5, lLI.peekFirst());
+        assertEquals(4, lLI.size());
+
+
+        //testing the assertEquals() method
+        Object[] result = lLI.toArray();
+        assertEquals(true, result.getClass().isArray());
+        for (int i = 0; i < lLI.size(); i++) {
+            assertEquals(lLI.get(i), result[i]);
+        }
+    }
+
+    @Test
+    void test5() {
+        System.out.println("Starting Test 5");
+
+        lLI = new LinkedList<Integer>();
+
+        lLI.add(1);
+        lLI.add(2);
+        lLI.add(3);
+        lLI.add(4);
+        lLI.add(5);
+
+        //test the remove() method
+        assertEquals(1, lLI.remove());
+
+        //test the offer() method
+        assertTrue(lLI.offer(7));
+        assertEquals(7, lLI.getLast());
+
+
+        //test the addAll(index, linkedList) method
+        lLI.addAll(2, lLI);
+        assertEquals(2, lLI.getFirst());
+
+    }
+
+    @Test
+    void test6() {
+        System.out.println("Starting Test 6");
+
+        lLI = new LinkedList<Integer>();
+
+        lLI.add(1);
+        lLI.add(2);
+        lLI.add(3);
+        lLI.add(4);
+        lLI.add(5);
+
+        //Test the toArray() method
+        Object[] arrrayTest = lLI.toArray();
+        Object[] compareArray = {1, 2, 3, 4, 5};
+        assertArrayEquals(compareArray, arrrayTest);
+
+        //Test the toArray(T[] a) method
+        Object[] array1 = new Object[lLI.size()];
+        lLI.toArray(array1);
+        assertArrayEquals(compareArray, array1);
+    }
 }
+
+
+
+
