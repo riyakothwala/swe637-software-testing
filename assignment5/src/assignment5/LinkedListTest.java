@@ -344,8 +344,75 @@ class LinkedListTest {
         lLI.toArray(array1);
         assertArrayEquals(compareArray, array1);
     }
+    
+    //this test will focus on method LastIndexOf() 
+    @Test
+	void test7() {
+    	System.out.println("Starting Test 7");
+	
+    	lLI = new LinkedList<Integer>();
+    	
+    	lLI.add(1);
+    	
+    	assertEquals(-1,lLI.lastIndexOf(null));
+    	
+    	lLI.add(null);
+    	
+    	assertEquals(1,lLI.lastIndexOf(null));
+    	assertEquals(0,lLI.lastIndexOf(1));
+    }
+    
+    //this test will focus on method toArray() 
+    @Test
+	void test8() {
+    	System.out.println("Starting Test 8");
+    	
+    	lLI = new LinkedList<Integer>();
+    	
+    	lLI.add(1);
+    	lLI.add(2);
+    	
+    	Object[] oA1 = lLI.toArray(new Integer[1]);
+    	Object[] oA2 = lLI.toArray(new Integer[2]);
+    	Object[] oA3 = lLI.toArray(new Integer[3]);
+    	
+    	assertEquals(1,oA1[0]);
+    	assertEquals(2,oA1[1]);
+    	assertEquals(1,oA2[0]);
+    	assertEquals(2,oA2[1]);
+    	assertEquals(1,oA3[0]);
+    	assertEquals(2,oA3[1]);
+    }
+    
+    //this test will focus on method add(int index, E element) 
+    @Test
+	void test9() {
+    	System.out.println("Starting Test 9");
+    	
+    	lLI = new LinkedList<Integer>();
+    	
+    	lLI.add(1);
+    	lLI.add(2);
+    	
+    	lLI.add(1, 3);
+    	
+    	assertEquals(3,lLI.get(1));
+    }
+    
+    //this test will focus on methods peek(), peekFirst(), peekLast() 
+    @Test
+	void test10() {
+    	System.out.println("Starting Test 10");
+    	
+    	lLI = new LinkedList<Integer>();
+    	
+    	assertEquals(null,lLI.peek());
+    	assertEquals(null,lLI.peekFirst());
+    	assertEquals(null,lLI.peekLast());
+    }
 }
 
+	
 
 
 
