@@ -3,6 +3,8 @@
 // Modification of this software for testing purposes is NOT AUTHORIZED by the
 // approval authority.
 
+//package mcas;
+
 public class Mcas
 {
     // Define enumerations for return values (commands)
@@ -36,7 +38,7 @@ public class Mcas
 
     // Method to control trim
     public Command trim(boolean autopilotOn, boolean flapsDown,
-            double angleOfAttack)
+                        double angleOfAttack)
     {
         // Initialize command to NONE
         Command command = Command.NONE;
@@ -97,7 +99,7 @@ public class Mcas
         // Return the desired trim command
         return command;
     }
-    
+
     // FOR TESTING: TEST METHOD ADDED FOR OBSERVABILITY
     // This method must not change any internal state.
     // While "test-only" code is generally discouraged
