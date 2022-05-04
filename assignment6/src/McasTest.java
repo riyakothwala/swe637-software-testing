@@ -1,44 +1,49 @@
-import jdk.swing.interop.SwingInterOpUtils;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+class McasTest {
 
-
-public class McasTest {
-
-    Mcas mcasTest;
+	Mcas mcasTest;
     Mcas.Command cmd = Mcas.Command.NONE;
     boolean autopilotOnTest;
     boolean flapsDownTest;
     double angleOfAttackTest;
-
+    
+    McasTimerSingleton mcasTimerSingleton;
+    
     @BeforeEach
     void setup() {
+    	System.out.println("Setting up test...");
         mcasTest = new Mcas();
         double angleOfAttackTest = 0.0;
         boolean autopilotOnTest = true;
         boolean flapsDownTest = true;
-        System.out.println("Setting up test...");
+        
+        mcasTimerSingleton = McasTimerSingleton.getInstance();
+        mcasTimerSingleton.resetTimerSet();
+        mcasTimerSingleton.resetIsExpired();
     }
 
     @AfterEach
     void tearDown() {
+    	System.out.println("Tearing down test...");
         double angleOfAttackTest = 0.0;
         boolean autopilotOnTest = true;
         boolean flapsDownTest = true;
-        System.out.println("Tearing down test...");
-
+        
+        mcasTimerSingleton.resetTimerSet();
+        mcasTimerSingleton.resetIsExpired();
     }
 
     boolean autopilotOn;
     boolean flapsDown;
     Mcas.State state;
     Mcas.Command com;
-
-
 
     @Test
     void testd1_TR1(){
@@ -137,16 +142,13 @@ public class McasTest {
 
     @Test
     void testd3_TR1(){
-        System.out.println("Starting Test for d3_TR1 for ");
-        System.out.println(mcasTest.getState());
-        mcasTest.trim(autopilotOnTest = false,flapsDownTest = false,angleOfAttackTest);
-        System.out.println(mcasTest.getState());
-        cmd = mcasTest.trim(autopilotOnTest = false,flapsDownTest = false,angleOfAttackTest = 13.0);
-        System.out.println(mcasTest.getState());
+        System.out.println("Starting Test for d3_TR1");
+        angleOfAttackTest = 13.0;
+        cmd = mcasTest.trim(autopilotOnTest, flapsDownTest, angleOfAttackTest);
 
-        assertEquals(Mcas.State.ACTIVE, mcasTest.getState());
-        assertEquals(Mcas.Command.DOWN, cmd);
-        System.out.println(cmd);
+        assertEquals(true,mcasTimerSingleton.timerSet);
+        assertEquals(Mcas.Command.DOWN,cmd);
+        assertEquals(Mcas.State.ACTIVE,mcasTest.getState());
     }
 
     @Test
@@ -284,15 +286,41 @@ public class McasTest {
         System.out.println(mcasTest.getState());
         mcasTest.trim(autopilotOnTest, flapsDownTest=false, angleOfAttackTest = 13.0);
         assertEquals(Mcas.State.ACTIVE,mcasTest.getState());
-
     }
-
-
-
-
-
-
-
-
-
+    
+    @Test
+    void testd6_TR1() {
+    	System.out.println("Starting Test for d6_TR1 for ");
+    	angleOfAttackTest = 13.0;
+    	
+    	//call trim one time to prime internal state element to State.ACTIVE state
+    	mcasTest.trim(autopilotOnTest, flapsDownTest, angleOfAttackTest);
+    	
+    	//verify state has been primed through an assertion call
+    	assertEquals(Mcas.State.ACTIVE,mcasTest.getState());
+    	
+    	//set the following booleans false to prevent entering D4 if statement
+    	autopilotOnTest = false;
+    	flapsDownTest = false;
+    	
+    	//prime timer.isExpired() to return true
+    	mcasTimerSingleton.setIsExpired();
+    	
+    	//verify priming has occurred through an assertion check
+    	assertEquals(true,mcasTimerSingleton.isExpired);
+    	
+    	//check if singleton timerSet boolean is already true as it may have been set
+    	//from previous trim call, if true reset it
+    	if(mcasTimerSingleton.timerSet == true) {
+    		mcasTimerSingleton.resetTimerSet();
+    	}
+    	
+    	cmd = mcasTest.trim(autopilotOnTest, flapsDownTest, angleOfAttackTest);
+    	
+    	//verify cmd is set to DOWN
+    	assertEquals(Mcas.Command.DOWN,cmd);
+    	//verify that singleton timerSet has been set again to TRUE
+    	assertEquals(true,mcasTimerSingleton.timerSet);
+ 
+    }
 }

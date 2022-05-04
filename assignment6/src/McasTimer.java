@@ -1,12 +1,21 @@
 public class McasTimer {
-
-    public McasTimer(long activationIntervalMs) {
+    
+	McasTimerSingleton test;
+	
+    // Constructor
+    public McasTimer(long timeIntervalMs)
+    {
+    	test = McasTimerSingleton.getInstance();
     }
 
-    public void set() {
+    public void set()
+    {
+        McasTimerSingleton x = McasTimerSingleton.getInstance();
+        x.setTimerSet();
     }
 
-    public boolean isExpired() {
-        return false;
+    public boolean isExpired()
+    {
+        return test.isExpired;
     }
 }
